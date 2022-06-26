@@ -1,0 +1,9 @@
+﻿command for doing scaffold-dbcontext.  This is to separate the model and context directories
+https://stackoverflow.com/questions/48282223/scaffold-dbcontext-to-different-output-folder
+Scaffold-DbContext "*connection*" "*provider*" -OutputDir "BackendProject" -ContextDir "DbContexts"
+
+https://docs.microsoft.com/en-us/ef/core/cli/powershell
+
+Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir <string> -Context <string> -NameSpace <string> -OutputDir <string> -Provider <string> -Tables <string[]> -NoOnConfiguring
+
+
