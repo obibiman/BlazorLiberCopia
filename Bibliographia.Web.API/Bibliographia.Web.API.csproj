@@ -31,10 +31,12 @@
     <Folder Include="Database\" />
     <Folder Include="Logs\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\DataTransfer\Book\" />
-    <Folder Include="Models\DataTransfer\Author\" />
     <Folder Include="Models\DataTransfer\Login\" />
     <Folder Include="Models\DataTransfer\User\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
 </Project>
