@@ -1,0 +1,40 @@
+﻿CREATE TABLE Author
+(
+	Id int IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	FirstName nvarchar(50) NULL,
+	LastName nvarchar(50) NULL,
+	Bio nvarchar(500) NULL,
+	Created datetime  DEFAULT GETDATE(),
+	Updated DateTime NULL
+);
+
+CREATE TABLE Book
+(
+	Id int IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	Title nvarchar(100) NULL,
+	Year nvarchar(4) NULL,
+	Isbn nvarchar(15) NULL,
+	Genre nvarchar(25) null,
+	Pages int Null,
+	ImageUrl nvarchar(100) NULL,
+	Price decimal(18,2) NULL,
+	Created datetime NULL DEFAULT GETDATE(),
+	Updated DateTime NULL,
+	AuthorId int NULL,
+	CONSTRAINT FK_Book_Author FOREIGN KEY(AuthorId) REFERENCES Author(Id)
+)
+
+CREATE TABLE Publisher
+(
+	Id int IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	Name nvarchar(50) NULL,
+	Location nvarchar(50) NULL,
+	CompanyUrl nvarchar(100) NULL,
+	Created datetime  DEFAULT GETDATE(),
+	Updated DateTime NULL
+);
+
+
+exec sp_Help Author
+exec sp_Help Book
+exec sp_Help Publisher
