@@ -15,6 +15,7 @@ namespace Bibliographia.Web.API.Models.DataTransfer.Book
         public string? ImageUrl { get; set; }
         [Required, Range(0, int.MaxValue)]
         public decimal? Price { get; set; }
+        public DateTime? Updated { get; set; }
     }
 }
 

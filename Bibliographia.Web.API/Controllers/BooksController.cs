@@ -35,13 +35,10 @@ namespace Bibliographia.Web.API.Controllers
             try
             {
                 _logger.LogInformation($"making request call to {nameof(GetBooks)}");
-                List<BookReadOnlyDto>? books = await _context.Books.Include(y => y.Author)
+                List<BookReadOnlyDto>? books = await _context.Books
+                    .Include(y => y.Author)
                     .ProjectTo<BookReadOnlyDto>(_mapper.ConfigurationProvider)
                     .ToListAsync();
-
-                //_logger.LogInformation($"making request call to {nameof(GetBooks)}");
-                //List<BookReadOnlyDto>? books = await _context.Books.ProjectTo<BookReadOnlyDto>(_mapper.ConfigurationProvider)
-                //    .ToListAsync();
 
                 return Ok(books);
             }
@@ -50,7 +47,7 @@ namespace Bibliographia.Web.API.Controllers
                 _logger.LogError(exep, $"Error performing GET operation in {nameof(GetBooks)}");
                 return StatusCode(500, Messages.Error500Mesage);
             }
-        }
+        }       
 
         // GET: api/Books/5
         [HttpGet("{id}")]
@@ -101,7 +98,8 @@ namespace Bibliographia.Web.API.Controllers
                 return BadRequest();
             }
             _ = _mapper.Map(bookUpdateDto, book);
-            _context.Entry(bookUpdateDto).State = EntityState.Modified;
+            book.Updated = DateTime.UtcNow;
+            _context.Entry(book).State = EntityState.Modified;
             try
             {
                 _ = await _context.SaveChangesAsync();

@@ -6,7 +6,7 @@ namespace Bibliographia.Web.API.Models.DataTransfer.Book
     {
         [Required, StringLength(100)]
         public string? Title { get; set; }
-        [StringLength(4)]
+        [StringLength(4), Range(1800,int.MaxValue)]
         public string? Year { get; set; }
         [StringLength(15)]
         public string? Isbn { get; set; }
