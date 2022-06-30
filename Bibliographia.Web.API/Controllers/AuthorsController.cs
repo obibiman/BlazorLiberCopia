@@ -9,11 +9,14 @@ using Bibliographia.Web.API.Models.Domain;
 using AutoMapper;
 using Bibliographia.Web.API.Models.DataTransfer.Author;
 using Bibliographia.Web.API.Static;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Bibliographia.Web.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthorsController : ControllerBase
     {
         private readonly BiblioContext _context;
@@ -75,9 +78,12 @@ namespace Bibliographia.Web.API.Controllers
             }
         }
 
+        #region administrator only
+
         // PUT: api/Authors/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> PutAuthor(int id, AuthorUpdateDto authorUpdateDto)
         {
             try
@@ -118,6 +124,7 @@ namespace Bibliographia.Web.API.Controllers
         // POST: api/Authors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<AuthorCreateDto>> PostAuthor(AuthorCreateDto authorCreateDto)
         {
             try
@@ -144,11 +151,11 @@ namespace Bibliographia.Web.API.Controllers
                 return BadRequest();
             }
         }
-
-       
+               
 
         // DELETE: api/Authors/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
             if (_context.Authors == null)
@@ -167,6 +174,7 @@ namespace Bibliographia.Web.API.Controllers
             return NoContent();
         }
 
+        #endregion administrator only
         private async Task<bool> AuthorExistsAsync(int id)
         {
             return await _context.Authors?.AnyAsync(e => e.Id == id);

@@ -2,6 +2,7 @@
 using Bibliographia.Web.API.Models.ApiGateway;
 using Bibliographia.Web.API.Models.DataTransfer.Login;
 using Bibliographia.Web.API.Static;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace Bibliographia.Web.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         private readonly ILogger<AuthController> _logger;
@@ -27,8 +29,7 @@ namespace Bibliographia.Web.API.Controllers
             _mapper = mapper;
             _userManager = userManager;
             _configuration = configuration;
-        }
-      
+        }      
 
         [HttpPost]
         [Route("register")]
@@ -77,19 +78,17 @@ namespace Bibliographia.Web.API.Controllers
                     _logger.LogWarning($"The user {userDto.Email} and or password was not found");
                     return Unauthorized(userDto);
                 }
-                //string tokenString = await GenerateToken(user);
+                string tokenString = await GenerateToken(user);
 
-                //AuthResponse? response = new AuthResponse
-                //{
-                //    Email = userDto.Email,
-                //    Token = tokenString,
-                //    UserId = user.Id
-                //};
+                AuthResponse? response = new AuthResponse
+                {
+                    Email = userDto.Email,
+                    Token = tokenString,
+                    UserId = user.Id
+                };
 
-                //_logger.LogInformation($"Successfully called {nameof(Login)} method by username {loginUserDto.Email}");
-                //return response;
-                return Accepted();
-
+                _logger.LogInformation($"Successfully called {nameof(Login)} method by username {userDto.Email}");
+                return response;
             }
             catch (Exception exep)
             {
@@ -119,6 +118,7 @@ namespace Bibliographia.Web.API.Controllers
             .Union(roleClaims)
             .Union(userClaims);
 
+            //create the token
             JwtSecurityToken? token = new JwtSecurityToken(
                 issuer: _configuration["JwtSettings:Issuer"],
                 audience: _configuration["JwtSettings:Audience"],

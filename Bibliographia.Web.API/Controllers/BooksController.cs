@@ -10,11 +10,13 @@ using AutoMapper.QueryableExtensions;
 using Bibliographia.Web.API.Models.DataTransfer.Book;
 using Bibliographia.Web.API.Static;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bibliographia.Web.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BooksController : ControllerBase
     {
         private readonly BiblioContext _context;
@@ -80,10 +82,11 @@ namespace Bibliographia.Web.API.Controllers
                 return StatusCode(500, Messages.Error500Mesage);
             }
         }
-
+        #region administrator only
         // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> PutBook(int id, BookUpdateDto bookUpdateDto)
         {
             if (id != bookUpdateDto.Id)
@@ -122,6 +125,7 @@ namespace Bibliographia.Web.API.Controllers
         // POST: api/Books
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<BookCreateDto>> PostBook(BookCreateDto bookCreateDto)
         {
             try
@@ -148,6 +152,7 @@ namespace Bibliographia.Web.API.Controllers
 
         // DELETE: api/Books/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteBook(int id)
         {
             try
@@ -176,6 +181,8 @@ namespace Bibliographia.Web.API.Controllers
                 return BadRequest();
             }
         }
+
+        #endregion administrator only
 
         private bool BookExists(int id)
         {
