@@ -13,5 +13,6 @@ namespace Bibliographia.Web.API.Models.DataTransfer.Author
         [StringLength(500)]
 
         public string Bio { get; set; } = string.Empty;
+        public DateTime? Updated { get; set; }
     }
 }

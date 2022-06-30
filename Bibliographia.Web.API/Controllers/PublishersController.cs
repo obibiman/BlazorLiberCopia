@@ -83,7 +83,7 @@ namespace Bibliographia.Web.API.Controllers
                 }
 
                 _ = _mapper.Map(publisherUpdateDto, publisher);
-
+                publisher.Updated = DateTime.UtcNow;
                 _context.Entry(publisher).State = EntityState.Modified;
                 _ = await _context.SaveChangesAsync();
             }

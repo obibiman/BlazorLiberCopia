@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Bibliographia.Web.API.Models.Domain
 {
-    public partial class BiblioContext : DbContext
+    public partial class BiblioContext : IdentityDbContext
     {
         public BiblioContext()
         {
@@ -22,6 +23,8 @@ namespace Bibliographia.Web.API.Models.Domain
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Author>(entity =>
             {
                 entity.ToTable("Author");

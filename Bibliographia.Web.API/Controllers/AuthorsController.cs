@@ -96,7 +96,7 @@ namespace Bibliographia.Web.API.Controllers
                 }
 
                 _ = _mapper.Map(authorUpdateDto, author);
-
+                author.Updated = DateTime.UtcNow;
                 _context.Entry(author).State = EntityState.Modified;
                 _ = await _context.SaveChangesAsync();
             }

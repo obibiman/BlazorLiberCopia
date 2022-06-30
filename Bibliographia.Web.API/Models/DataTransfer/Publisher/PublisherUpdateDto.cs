@@ -12,5 +12,6 @@ namespace Bibliographia.Web.API.Models.DataTransfer.Publisher
         public string? Location { get; set; }
         [StringLength(100)]
         public string? CompanyUrl { get; set; }
+        public DateTime? Updated { get; set; }
     }
 }

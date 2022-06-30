@@ -1,5 +1,6 @@
 using Bibliographia.Web.API.Configurations;
 using Bibliographia.Web.API.Models.Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -11,6 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 var connString = builder.Configuration.GetConnectionString("BiblioRepoDb");
 builder.Services.AddDbContext<BiblioContext>(options => options.UseSqlServer(connString));
 
+//previously used APIUser
+//add identity
+builder.Services.AddIdentityCore<IdentityUser>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<BiblioContext>();
 
 //add automapper
 builder.Services.AddAutoMapper(typeof(MapperConfig));
