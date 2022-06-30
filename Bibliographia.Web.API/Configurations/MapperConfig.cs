@@ -3,6 +3,8 @@ using Bibliographia.Web.API.Models.Domain;
 using Bibliographia.Web.API.Models.DataTransfer.Author;
 using Bibliographia.Web.API.Models.DataTransfer.Book;
 using Bibliographia.Web.API.Models.DataTransfer.Publisher;
+using Bibliographia.Web.API.Models.ApiGateway;
+using Bibliographia.Web.API.Models.DataTransfer.Login;
 
 namespace Bibliographia.Web.API.Configurations
 {
@@ -32,8 +34,8 @@ namespace Bibliographia.Web.API.Configurations
             _ = CreateMap<PublisherUpdateDto, Publisher>().ReverseMap();
             _ = CreateMap<PublisherReadOnlyDto, Publisher>().ReverseMap();
 
-            // //mapping for User
-            // _ = CreateMap<ApiUser, UserDto>().ReverseMap();
+            //mapping for User
+            _ = CreateMap<ApiUser, UserDto>().ReverseMap();
         }
     }
 }

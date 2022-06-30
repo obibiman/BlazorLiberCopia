@@ -1,4 +1,5 @@
 using Bibliographia.Web.API.Configurations;
+using Bibliographia.Web.API.Models.ApiGateway;
 using Bibliographia.Web.API.Models.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<BiblioContext>(options => options.UseSqlServer(con
 
 //previously used APIUser
 //add identity
-builder.Services.AddIdentityCore<IdentityUser>()
+builder.Services.AddIdentityCore<ApiUser>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<BiblioContext>();
 

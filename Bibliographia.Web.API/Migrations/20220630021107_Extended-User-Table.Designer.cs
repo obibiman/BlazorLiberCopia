@@ -4,6 +4,7 @@ using Bibliographia.Web.API.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bibliographia.Web.API.Migrations
 {
     [DbContext(typeof(BiblioContext))]
-    partial class BiblioContextModelSnapshot : ModelSnapshot
+    [Migration("20220630021107_Extended-User-Table")]
+    partial class ExtendedUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,44 +95,6 @@ namespace Bibliographia.Web.API.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "7f3a7775-8726-4b1e-b3e1-2dd2e3a162b9",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "abc38e3d-dbe3-4523-bd26-801e077e70cb",
-                            Email = "user@bookstore.com",
-                            EmailConfirmed = false,
-                            FirstName = "System",
-                            LastName = "User",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER@BOOKSTORE.COM",
-                            NormalizedUserName = "USER@BOOKSTORE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJAT6ceVissDVLabHANYKLZW9SgkyN3ax3gKSexEqRfGeRrVvzNIAXplWPFAGBwX2A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e83eaa98-5cca-43ff-a869-8ed02d2cc441",
-                            TwoFactorEnabled = false,
-                            UserName = "user@bookstore.com"
-                        },
-                        new
-                        {
-                            Id = "64701336-a647-426a-afab-ff3efb23a443",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "853df6d3-f969-4a6a-9452-f461ab928738",
-                            Email = "admin@bookstore.com",
-                            EmailConfirmed = false,
-                            FirstName = "System",
-                            LastName = "Admin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@BOOKSTORE.COM",
-                            NormalizedUserName = "ADMIN@BOOKSTORE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECFyxx7IliTCIOcbR07ZuUuYFQcN2pURFQuus73E/JH9O8PBZwMbykyE1+13mkuIug==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "45aa894d-a534-44bb-bcf1-311771f1b383",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@bookstore.com"
-                        });
                 });
 
             modelBuilder.Entity("Bibliographia.Web.API.Models.Domain.Author", b =>
@@ -276,22 +240,6 @@ namespace Bibliographia.Web.API.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "e312ad81-8e51-4256-a660-df740d8c5c88",
-                            ConcurrencyStamp = "7032ed52-8880-4138-9375-64f50efaa5e5",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "e4866a3d-ee37-498a-b68c-3aa641cb51f5",
-                            ConcurrencyStamp = "9d216c1f-fffb-4646-bf17-c3236334067f",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -379,18 +327,6 @@ namespace Bibliographia.Web.API.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "7f3a7775-8726-4b1e-b3e1-2dd2e3a162b9",
-                            RoleId = "e312ad81-8e51-4256-a660-df740d8c5c88"
-                        },
-                        new
-                        {
-                            UserId = "64701336-a647-426a-afab-ff3efb23a443",
-                            RoleId = "e4866a3d-ee37-498a-b68c-3aa641cb51f5"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
