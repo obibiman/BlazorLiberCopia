@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>fd325f99-6344-4808-8353-07d20173c46f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,10 +32,11 @@
     <Folder Include="Database\" />
     <Folder Include="Logs\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\DataTransfer\Book\" />
-    <Folder Include="Models\DataTransfer\Author\" />
-    <Folder Include="Models\DataTransfer\Login\" />
     <Folder Include="Models\DataTransfer\User\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Bibliographia.Web.API.Models.Domain
+﻿namespace Bibliographia.Web.API.Models.DataTransfer.Publisher
 {
-    public partial class Publisher
+    public class PublisherDetailsDto
     {
         public int Id { get; set; }
         public string? Name { get; set; }
@@ -11,5 +8,5 @@ namespace Bibliographia.Web.API.Models.Domain
         public string? CompanyUrl { get; set; }
         public DateTime? Created { get; set; }
         public DateTime? Updated { get; set; }
-    }
+    } 
 }

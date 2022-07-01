@@ -6,3 +6,8 @@ https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcor
 
 
 https://blazor-university.com/
+
+
+https://www.talkingdotnet.com/use-sql-server-sequence-in-entity-framework-core-primary-key/
+
+https://docs.microsoft.com/en-us/aspnet/core/blazor/components/?view=aspnetcore-6.0

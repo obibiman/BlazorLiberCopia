@@ -1,4 +1,7 @@
-﻿namespace Bibliographia.Web.API.Models.Domain
+﻿using System;
+using System.Collections.Generic;
+
+namespace Bibliographia.Web.API.Models.Domain
 {
     public partial class Author
     {
@@ -11,6 +14,8 @@
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Bio { get; set; }
+        public DateTime? Created { get; set; }
+        public DateTime? Updated { get; set; }
 
         public virtual ICollection<Book> Books { get; set; }
     }
