@@ -7,3 +7,15 @@ https://docs.microsoft.com/en-us/ef/core/cli/powershell
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -ContextDir <string> -Context <string> -NameSpace <string> -OutputDir <string> -Provider <string> -Tables <string[]> -NoOnConfiguring
 
 
+https://github.com/RicoSuter/NSwag/wiki/CommandLine
+nswag openapi2csclient /input:MyWebService.json 
+                       /classname:MyServiceClient 
+                       /namespace:MyNamespace
+                       /output:MyServiceClient.cs
+
+
+                       using nswag command line tool
+
+                       nswag openapi2csclient /input:Bibliographia.nswag.json /classname:BibliographiaClient /namespace:Bibliographia.BlazorUI.Server.WebServicesProxy.Base /output:BibliographiaClientProxy.cs
+
+nswag openapi2csclient /input:Bibliographia.nswag.json /GenerateClientInterfaces:true /UseBaseUrl:false /classname:BibliographiaClient /namespace:Bibliographia.BlazorUI.Server.WebServicesProxy.Base /output:BibliographiaClient.cs
