@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bibliographia.Web.API.Models.DataTransfer.Login
+namespace Bibliographia.Web.API.Models.DataTransfer.User
 {
     public class UserDto : LoginUserDto
-    { 
+    {
         [Required]
         public string FirstName { get; set; }
         [Required]

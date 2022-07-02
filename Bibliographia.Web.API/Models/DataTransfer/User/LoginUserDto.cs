@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Bibliographia.Web.API.Models.DataTransfer.Login
+namespace Bibliographia.Web.API.Models.DataTransfer.User
 {
     public class LoginUserDto
     {
