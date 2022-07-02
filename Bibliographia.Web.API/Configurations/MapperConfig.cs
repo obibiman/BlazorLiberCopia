@@ -4,7 +4,7 @@ using Bibliographia.Web.API.Models.DataTransfer.Author;
 using Bibliographia.Web.API.Models.DataTransfer.Book;
 using Bibliographia.Web.API.Models.DataTransfer.Publisher;
 using Bibliographia.Web.API.Models.ApiGateway;
-using Bibliographia.Web.API.Models.DataTransfer.Login;
+using Bibliographia.Web.API.Models.DataTransfer.User;
 
 namespace Bibliographia.Web.API.Configurations
 {

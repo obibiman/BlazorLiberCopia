@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Bibliographia.Web.API.Models.ApiGateway;
-using Bibliographia.Web.API.Models.DataTransfer.Login;
+using Bibliographia.Web.API.Models.DataTransfer.User;
 using Bibliographia.Web.API.Static;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
