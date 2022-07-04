@@ -1,6 +1,7 @@
 ﻿@page "/users/login"
 @inject IAuthenticationService _authenticationService
 @inject NavigationManager _navManager
+@inject ILogger<Login> _logger
 
 <h3>Login</h3>
 
@@ -25,28 +26,36 @@
 </div>
 
 @code {
-    UserDto loginModel = new UserDto();
+    UserDto loginModel = new UserDto { Role = "Administrator" };
 
     string message = string.Empty;
     private async Task HandleLogin()
     {
         try
         {
+            _logger.LogInformation($"attempt to call AuthenticateService from {nameof(HandleLogin)}");
             var response = await _authenticationService.AuthenticateAsync(loginModel);
-
+            _logger.LogInformation($"called AuthenticateService from {nameof(HandleLogin)} and the response was {response}");
             if (response)
             {
+                _logger.LogInformation($"response from AuthenticationService was {response}.  Will now navigate to Index page");
                 _navManager.NavigateTo("/");
             }
+            _logger.LogWarning($"called AuthenticateService from {nameof(HandleLogin)} and the response was {response}");
+
             message = $"Invalid credentials - please try again";
         }
         catch (ApiException ex)
         {
+            _logger.LogError($"An exception occurred {ex} during call to {nameof(HandleLogin)}");
             if (ex.StatusCode >= 200 && ex.StatusCode <= 299)
             {
-
+                _logger.LogWarning($"Http status code was was {ex.StatusCode} but was expecting {StatusCodes.Status201Created} in {nameof(HandleLogin)}");
             }
             message = ex.Response;
-        }    
+        }
     }
+
+    protected override async Task OnInitializedAsync() => _logger.LogInformation($"Calling {nameof(OnInitializedAsync)}");
+    //protected override void OnInitialized() => _logger.LogInformation($"Calling {nameof(OnInitialized)} in {nameof(Login)}");
 }

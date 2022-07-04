@@ -5,26 +5,28 @@ using Bibliographia.BlazorUI.Server.WebServicesProxy.Base;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-
 //add blazored local storage
 builder.Services.AddBlazoredLocalStorage();
 //add the Client proxy
 builder.Services.AddHttpClient<IBibliographiaClient, BibliographiaClient>(cl => cl.BaseAddress = new Uri("https://localhost:7016"));
-
 //add authentication service to pipeline
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-
 //add this services first and then use it below
 builder.Services.AddScoped<ApiAuthenticationStateProvider>();
-
 //add auth service provider and wrapper
 builder.Services.AddScoped<ApiAuthenticationStateProvider>(p => p.GetRequiredService<ApiAuthenticationStateProvider>());
+
+//adding logging capabilities
+builder.Logging.ClearProviders(); //clear all default providers
+builder.Logging.AddConsole(); //log to console 
+builder.Logging.AddDebug(); //log to debug window 
 
 var app = builder.Build();
 
@@ -37,11 +39,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 

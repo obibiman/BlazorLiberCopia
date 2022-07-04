@@ -10,34 +10,44 @@ namespace Bibliographia.BlazorUI.Server.Providers
     {
         private readonly ILocalStorageService _localStorageService;
         private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler;
-        public ApiAuthenticationStateProvider(ILocalStorageService localStorageService)
+        private readonly ILogger<ApiAuthenticationStateProvider> _logger;
+        public ApiAuthenticationStateProvider(ILocalStorageService localStorageService, ILogger<ApiAuthenticationStateProvider> logger)
         {
             _localStorageService = localStorageService;
             _jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            _logger = logger;
         }
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
+            _logger.LogInformation($"create instance of ClaimsPrincipal in {nameof(GetAuthenticationStateAsync)}");
             var user = new ClaimsPrincipal(new ClaimsIdentity());
 
+            _logger.LogInformation($"retrieving taken from local storage in {nameof(GetAuthenticationStateAsync)}");
             //retrieve token from local storage
             var savedToken = await _localStorageService.GetItemAsync<string>("accessToken");
             if (savedToken == null)
             {
+                _logger.LogWarning($"there was no token to be retrieved in {nameof(GetAuthenticationStateAsync)}");
                 return new AuthenticationState(user);
             }
+
+            _logger.LogInformation($"token was retrieved in {nameof(GetAuthenticationStateAsync)} in and will be validated.");
             //read token contents
             var tokenContent = _jwtSecurityTokenHandler.ReadJwtToken(savedToken);
             if (tokenContent.ValidTo < DateTime.Now)
             {
+                _logger.LogWarning($"token was retrieved in {nameof(GetAuthenticationStateAsync)} but had already expired.");
                 return new AuthenticationState(user);
                 //await _localStorageService.RemoveItemAsync("accessToken");
             }
+            _logger.LogInformation($"retrieving claims in {nameof(GetAuthenticationStateAsync)}.");
             //get claims
             var claims = await GetClaims();
 
+            _logger.LogInformation($"claims {claims} have been retrieved.");
             //get user
             user = new ClaimsPrincipal(new ClaimsIdentity(claims, "jwt"));
-
+            _logger.LogInformation($"user details {user} have been retrieved.");
             return new AuthenticationState(new ClaimsPrincipal(user));
         }
 
