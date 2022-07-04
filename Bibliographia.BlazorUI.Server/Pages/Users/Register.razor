@@ -1,6 +1,7 @@
 ﻿@page "/users/register"
 @inject IBibliographiaClient _httpClient
 @inject NavigationManager _navManager
+@inject ILogger<Register> _logger
 
 <h3>Register New Account</h3>
 
@@ -16,22 +17,22 @@
         <ValidationSummary />
         <div class="form-group">
             <label for="email">Email Address</label>
-            <InputText class="form-control" @bind-Value="registrationModel.Email" />
+            <InputText class="form-control" typeof="email" placeholder="name@example.com" @bind-Value="registrationModel.Email" />
             <ValidationMessage For="@(()=>registrationModel.Email)" />
         </div><br />
         <div class="form-group">
             <label for="firstName">First Name</label>
-            <InputText class="form-control" @bind-Value="registrationModel.FirstName" />
+            <InputText class="form-control" placeholder="first name" @bind-Value="registrationModel.FirstName" />
             <ValidationMessage For="@(()=>registrationModel.FirstName)" />
         </div><br />
         <div class="form-group">
             <label for="lastName">Last Name</label>
-            <InputText class="form-control" @bind-Value="registrationModel.LastName" />
+            <InputText class="form-control" placeholder="last name" @bind-Value="registrationModel.LastName" />
             <ValidationMessage For="@(()=>registrationModel.LastName)" />
         </div><br />
         <div class="form-group">
             <label for="password">Password</label>
-            <InputText class="form-control" type="password" @bind-Value="registrationModel.Password" />
+            <InputText class="form-control" placeholder="password" type="password" @bind-Value="registrationModel.Password" />
             <ValidationMessage For="@(()=>registrationModel.Password)" />
         </div><br />
 
@@ -39,33 +40,40 @@
     </EditForm>
 </div>
 
-@code {
+@code { 
+
     UserDto registrationModel = new UserDto
-        {
-            Role = "User"
-        };
+    {
+        Role = "User"
+    };
 
     string message = string.Empty;
     private async Task HandleRegistration()
-    {
+    {        
         try
         {
+            _logger.LogInformation($"Now calling {nameof(HandleRegistration)} to register user using {registrationModel} parameters");
             await _httpClient.RegisterAsync(registrationModel);
+            _logger.LogInformation($"successfully called {nameof(HandleRegistration)} to register user using {registrationModel} parameters.  Will call {NavigateToLogin} next");
             NavigateToLogin();
         }
         catch (ApiException ex)
         {
+            _logger.LogError($"An exception occurred {ex} during call to {nameof(HandleRegistration)}");
+
             if (ex.StatusCode >= 200 && ex.StatusCode <= 299)
             {
+                _logger.LogWarning($"Http status code was was {ex.StatusCode} but was expecting {StatusCodes.Status201Created} in {nameof(HandleRegistration)}");
                 NavigateToLogin();
             }
-
             message = ex.Response;
         }    
     }
-
+    //protected override void OnInitialized() => _logger.LogInformation($"Calling {nameof(OnInitialized)} in {nameof(Register)}");
+    protected override async Task OnInitializedAsync() => _logger.LogInformation($"Calling {nameof(OnInitializedAsync)} in {nameof(Register)}");
     private void NavigateToLogin()
     {
+        _logger.LogInformation($"Calling {nameof(NavigateToLogin)}. Will attempt to navigate to login");
         _navManager.NavigateTo("/users/login");
     }
 }

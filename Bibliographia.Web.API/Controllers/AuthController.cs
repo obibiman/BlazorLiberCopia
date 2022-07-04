@@ -53,7 +53,7 @@ namespace Bibliographia.Web.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                 await _userManager.AddToRoleAsync(user, "User");
+                 await _userManager.AddToRoleAsync(user, "Administrator");
                 _logger.LogInformation($"Successfully called {nameof(Register)} and created new user {userDto.Email} for {userDto.FirstName} {userDto.LastName}");
                 return Accepted();
             }

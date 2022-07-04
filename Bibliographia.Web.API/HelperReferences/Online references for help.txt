@@ -19,3 +19,9 @@ nswag openapi2csclient /input:MyWebService.json
 nswag openapi2csclient /input:Bibliographia.nswag.json /classname:BibliographiaClient /namespace:Bibliographia.BlazorUI.Server.WebServicesProxy.Base /output:BibliographiaClientProxy.cs
 
 nswag openapi2csclient /input:Bibliographia.nswag.json /GenerateClientInterfaces:true /UseBaseUrl:false /classname:BibliographiaClient /namespace:Bibliographia.BlazorUI.Server.WebServicesProxy.Base /output:BibliographiaClient.cs
+
+
+kr7^$v0oR#lz{U%fNq surveyor
+
+//logging Carl Franklin
+https://www.youtube.com/watch?v=A_Bs4g235LU

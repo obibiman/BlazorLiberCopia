@@ -67,4 +67,8 @@ GO
 
 
 
+------------
+use Bibliographia
+go
 
+select * from AspNetUsers
