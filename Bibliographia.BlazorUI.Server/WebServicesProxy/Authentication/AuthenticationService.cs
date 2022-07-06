@@ -1,15 +1,15 @@
 ﻿using Bibliographia.BlazorUI.Server.Providers;
-using Bibliographia.BlazorUI.Server.WebServicesProxy.Base;
+using Bibliographia.BlazorUI.Server.ServiceClient.Base;
 using Blazored.LocalStorage;
 
 namespace Bibliographia.BlazorUI.Server.WebServicesProxy.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IBibliographiaClient _bibliographicClient;
+        private readonly IClient _bibliographicClient;
         private readonly ILocalStorageService _localStorageService;
         private readonly ApiAuthenticationStateProvider _stateProvider;
-        public AuthenticationService(IBibliographiaClient bibliographicClient, ILocalStorageService localStorage, ApiAuthenticationStateProvider stateProvider)
+        public AuthenticationService(IClient bibliographicClient, ILocalStorageService localStorage, ApiAuthenticationStateProvider stateProvider)
         {
             _bibliographicClient = bibliographicClient;
             _localStorageService = localStorage;

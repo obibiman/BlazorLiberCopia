@@ -1,4 +1,4 @@
-﻿using Bibliographia.BlazorUI.Server.WebServicesProxy.Base;
+﻿using Bibliographia.BlazorUI.Server.ServiceClient.Base;
 
 namespace Bibliographia.BlazorUI.Server.WebServicesProxy.Authentication
 {
